@@ -3,6 +3,7 @@ import 'package:recipes_app/data/mock_categories.dart';
 import 'package:recipes_app/widgets/category_list_item.dart';
 
 class CategoryListScreen extends StatelessWidget {
+  static const routeName = '/';
   const CategoryListScreen({Key? key}) : super(key: key);
 
   @override
