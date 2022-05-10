@@ -9,9 +9,7 @@ class CategoryListItem extends StatelessWidget {
   void _handleCategoryTap(BuildContext context) {
     Navigator.of(context).pushNamed(
       MealsListScreen.routeName,
-      arguments: {
-        'category': category,
-      },
+      arguments: category,
     );
   }
 

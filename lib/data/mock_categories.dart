@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/models/category.dart';
 
-const mockCategories = [
+const MOCK_CATEGORIES = [
   Category(
     id: 'c1',
     title: 'Italian',

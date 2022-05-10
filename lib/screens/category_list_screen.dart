@@ -22,7 +22,7 @@ class CategoryListScreen extends StatelessWidget {
             mainAxisSpacing: 10,
           ),
           children: [
-            ...mockCategories.map(
+            ...MOCK_CATEGORIES.map(
               (category) => CategoryListItem(category: category),
             )
           ],
