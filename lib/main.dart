@@ -10,9 +10,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Everyday recipes',
-      home: CategoryListScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.amber,
+        canvasColor: Color.fromARGB(255, 255, 240, 240),
+        fontFamily: 'Raleway',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              bodyLarge: const TextStyle(
+                color: Color.fromARGB(
+                  255,
+                  20,
+                  51,
+                  51,
+                ),
+              ),
+              bodyMedium: const TextStyle(
+                color: Color.fromARGB(
+                  255,
+                  20,
+                  51,
+                  51,
+                ),
+              ),
+              titleMedium: const TextStyle(
+                fontSize: 20,
+                fontFamily: 'RobotoCondensed',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+      ),
+      home: const CategoryListScreen(),
     );
   }
 }
