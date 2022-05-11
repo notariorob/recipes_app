@@ -43,17 +43,17 @@ class MealListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => _handleCategoryTap(context),
-      child: LayoutBuilder(
-        builder: (context, constraints) => Card(
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          margin: const EdgeInsets.only(
-            bottom: 8,
-          ),
+    return LayoutBuilder(
+      builder: (context, constraints) => Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        margin: const EdgeInsets.only(
+          bottom: 8,
+        ),
+        child: InkWell(
+          onTap: () => _handleCategoryTap(context),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
