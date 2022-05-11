@@ -14,10 +14,69 @@ class MealDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(meal.title),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Text(
-          meal.steps.toString(),
+      body: SingleChildScrollView(
+        child: LayoutBuilder(
+          builder: (context, constraints) => Column(
+            children: [
+              Hero(
+                tag: meal.id,
+                child: Image.network(
+                  meal.imageUrl,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Ingredients',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    ...meal.ingredients.map(
+                      (ingredient) => Row(
+                        children: [
+                          const Text('\u2022 '),
+                          Text(ingredient),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      'Steps',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    ...meal.steps.map(
+                      (step) => Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child: Row(
+                          children: [
+                            const Text('\u2022 '),
+                            Flexible(
+                              child: Text(
+                                step,
+                                softWrap: true,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

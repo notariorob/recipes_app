@@ -65,11 +65,14 @@ class MealListItem extends StatelessWidget {
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15),
                       ),
-                      child: Image.network(
-                        meal.imageUrl,
-                        height: 250,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
+                      child: Hero(
+                        tag: meal.id,
+                        child: Image.network(
+                          meal.imageUrl,
+                          height: 250,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Positioned(
