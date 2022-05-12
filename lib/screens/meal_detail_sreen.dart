@@ -7,6 +7,11 @@ class MealDetailScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  Widget _buildSectionTitle(BuildContext context, String title) => Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium,
+      );
+
   @override
   Widget build(BuildContext context) {
     Meal meal = ModalRoute.of(context)!.settings.arguments as Meal;
@@ -31,10 +36,7 @@ class MealDetailScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Ingredients',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
+                    _buildSectionTitle(context, 'Ingredients'),
                     const SizedBox(
                       height: 8,
                     ),
@@ -49,10 +51,7 @@ class MealDetailScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Text(
-                      'Steps',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
+                    _buildSectionTitle(context, 'Instructions'),
                     const SizedBox(
                       height: 8,
                     ),
