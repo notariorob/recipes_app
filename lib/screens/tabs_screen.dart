@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/screens/category_list_screen.dart';
 import 'package:recipes_app/screens/favorites_screen.dart';
+import 'package:recipes_app/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);
@@ -32,6 +33,7 @@ class _TabsScreenState extends State<TabsScreen> {
         ),
       ),
       body: _pages[_selectedTabIndex]['widget'] as Widget,
+      drawer: const MainDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTabIndex,
         backgroundColor: Theme.of(context).primaryColor,
