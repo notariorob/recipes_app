@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/data/mock_meals.dart';
 import 'package:recipes_app/models/category.dart';
+import 'package:recipes_app/models/filters.dart';
 import 'package:recipes_app/models/meal.dart';
 import 'package:recipes_app/widgets/meal_list_item.dart';
 
 class MealsListScreen extends StatelessWidget {
   static const routeName = '/meals';
 
-  const MealsListScreen({Key? key}) : super(key: key);
+  const MealsListScreen({Key? key, required this.meals}) : super(key: key);
+
+  final List<Meal> meals;
 
   @override
   Widget build(BuildContext context) {
     final category = ModalRoute.of(context)!.settings.arguments as Category;
-    final List<Meal> categoryMeals = MOCK_MEALS
-        .where((meal) => meal.categories.contains(category.id))
-        .toList();
+    final List<Meal> categoryMeals =
+        meals.where((meal) => meal.categories.contains(category.id)).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(category.title),
