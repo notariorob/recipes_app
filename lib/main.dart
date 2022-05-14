@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/data/mock_meals.dart';
-import 'package:recipes_app/models/filters.dart';
 import 'package:recipes_app/models/meal.dart';
+import 'package:recipes_app/models/preferences.dart';
 import 'package:recipes_app/screens/category_list_screen.dart';
 import 'package:recipes_app/screens/filters_screen.dart';
 import 'package:recipes_app/screens/meal_detail_sreen.dart';
 import 'package:recipes_app/screens/meals_list_screen.dart';
 import 'package:recipes_app/screens/tabs_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => Preferences(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -20,43 +30,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Meal> _filteredMeals = MOCK_MEALS;
-  List<Meal> _favoriteMeals = [];
-  Map<Filter, bool> _filters = {
-    Filter.vegetarian: false,
-    Filter.vegan: false,
-    Filter.glutenFree: false,
-    Filter.lactoseFree: false,
-  };
-
-  void _updateFilter(Map<Filter, bool> filter) {
-    setState(() {
-      _filters = {..._filters, ...filter};
-      _filteredMeals = _filteredMeals
-          .where((meal) =>
-              (_filters[Filter.glutenFree]! ? meal.isGlutenFree : true) &&
-              (_filters[Filter.vegan]! ? meal.isVegan : true) &&
-              (_filters[Filter.vegetarian]! ? meal.isVegetarian : true) &&
-              (_filters[Filter.lactoseFree]! ? meal.isLactoseFree : true))
-          .toList();
-    });
-  }
-
-  void _toggleFavorite(Meal meal) {
-    setState(() {
-      var index = _favoriteMeals
-          .indexWhere((favoriteMeal) => favoriteMeal.id == meal.id);
-      if (index >= 0) {
-        _favoriteMeals.removeAt(index);
-      } else {
-        _favoriteMeals.add(meal);
-      }
-    });
-  }
-
-  bool _isMealFavorite(String id) =>
-      _favoriteMeals.any((meal) => meal.id == id);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -92,16 +65,10 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: TabsScreen.routeName,
       routes: {
-        TabsScreen.routeName: (context) => TabsScreen(
-              favorites: _favoriteMeals,
-            ),
-        FiltersScreen.routeName: (context) =>
-            FiltersScreen(filters: _filters, onFilterToggled: _updateFilter),
-        MealsListScreen.routeName: (context) =>
-            MealsListScreen(meals: _filteredMeals),
-        MealDetailScreen.routeName: (context) => MealDetailScreen(
-            onFavoriteToggled: _toggleFavorite,
-            favoriteChecker: _isMealFavorite),
+        TabsScreen.routeName: (context) => const TabsScreen(),
+        FiltersScreen.routeName: (_) => const FiltersScreen(),
+        MealsListScreen.routeName: (_) => const MealsListScreen(),
+        MealDetailScreen.routeName: (_) => const MealDetailScreen(),
       },
     );
   }

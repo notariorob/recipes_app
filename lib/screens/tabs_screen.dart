@@ -5,8 +5,7 @@ import 'package:recipes_app/screens/favorites_screen.dart';
 import 'package:recipes_app/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({Key? key, required this.favorites}) : super(key: key);
-  final List<Meal> favorites;
+  const TabsScreen({Key? key}) : super(key: key);
   static const routeName = '/';
 
   @override
@@ -24,10 +23,7 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': CategoryListScreen.screenName,
         'widget': const CategoryListScreen()
       },
-      {
-        'title': FavoritesScreen.screenName,
-        'widget': FavoritesScreen(favorites: widget.favorites)
-      },
+      {'title': FavoritesScreen.screenName, 'widget': const FavoritesScreen()},
     ];
 
     super.initState();

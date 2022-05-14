@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/models/filters.dart';
+import 'package:provider/provider.dart';
+import 'package:recipes_app/models/preferences.dart';
 import 'package:recipes_app/widgets/filter_toggle.dart';
 import 'package:recipes_app/widgets/main_drawer.dart';
 
@@ -7,14 +8,11 @@ class FiltersScreen extends StatelessWidget {
   static const routeName = '/filters';
   static const screenName = 'Filters';
 
-  const FiltersScreen(
-      {Key? key, required this.filters, required this.onFilterToggled})
-      : super(key: key);
-  final Map<Filter, bool> filters;
-  final Function(Map<Filter, bool>) onFilterToggled;
+  const FiltersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var preferences = context.watch<Preferences>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Preferences'),
@@ -28,30 +26,30 @@ class FiltersScreen extends StatelessWidget {
             FilterToggle(
               title: 'Vegetarian',
               subtitle: 'Only include vegetarian meals',
-              value: filters[Filter.vegetarian]!,
+              value: preferences.filters[Filter.vegetarian]!,
               onChanged: (bool checked) =>
-                  onFilterToggled({Filter.vegetarian: checked}),
+                  preferences.updateFilter(Filter.vegetarian, checked),
             ),
             FilterToggle(
               title: 'Vegan',
               subtitle: 'Only include vegan meals',
-              value: filters[Filter.vegan]!,
+              value: preferences.filters[Filter.vegan]!,
               onChanged: (bool checked) =>
-                  onFilterToggled({Filter.vegan: checked}),
+                  preferences.updateFilter(Filter.vegan, checked),
             ),
             FilterToggle(
               title: 'Gluten free',
               subtitle: 'Only include gluten free meals',
-              value: filters[Filter.glutenFree]!,
+              value: preferences.filters[Filter.glutenFree]!,
               onChanged: (bool checked) =>
-                  onFilterToggled({Filter.glutenFree: checked}),
+                  preferences.updateFilter(Filter.glutenFree, checked),
             ),
             FilterToggle(
               title: 'Lactose free',
               subtitle: 'Only include lactose free meals',
-              value: filters[Filter.lactoseFree]!,
+              value: preferences.filters[Filter.lactoseFree]!,
               onChanged: (bool checked) =>
-                  onFilterToggled({Filter.lactoseFree: checked}),
+                  preferences.updateFilter(Filter.lactoseFree, checked),
             ),
           ],
         ),

@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/models/meal.dart';
+import 'package:recipes_app/widgets/favorite_fab.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal/detail';
-  const MealDetailScreen(
-      {Key? key,
-      required this.onFavoriteToggled,
-      required this.favoriteChecker})
-      : super(key: key);
-
-  final Function(Meal) onFavoriteToggled;
-  final Function(String) favoriteChecker;
+  const MealDetailScreen({Key? key}) : super(key: key);
 
   Widget _buildSectionTitle(BuildContext context, String title) => Text(
         title,
@@ -24,15 +18,8 @@ class MealDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(meal.title),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor,
-        onPressed: () => onFavoriteToggled(meal),
-        child: Icon(
-          favoriteChecker(meal.id)
-              ? Icons.favorite
-              : Icons.favorite_border_outlined,
-          color: Colors.red,
-        ),
+      floatingActionButton: FavoriteFAB(
+        mealId: meal.id,
       ),
       body: SingleChildScrollView(
         child: LayoutBuilder(
