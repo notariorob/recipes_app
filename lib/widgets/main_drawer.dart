@@ -29,7 +29,7 @@ class MainDrawer extends StatelessWidget {
             height: 20,
           ),
           DrawerNavigationItem(
-            title: 'Categories',
+            title: 'Home',
             icon: Icons.restaurant,
             routeName: TabsScreen.routeName,
           ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/data/mock_meals.dart';
 import 'package:recipes_app/models/category.dart';
-import 'package:recipes_app/models/filters.dart';
 import 'package:recipes_app/models/meal.dart';
 import 'package:recipes_app/widgets/meal_list_item.dart';
 

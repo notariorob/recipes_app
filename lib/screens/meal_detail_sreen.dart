@@ -3,9 +3,14 @@ import 'package:recipes_app/models/meal.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal/detail';
-  const MealDetailScreen({
-    Key? key,
-  }) : super(key: key);
+  const MealDetailScreen(
+      {Key? key,
+      required this.onFavoriteToggled,
+      required this.favoriteChecker})
+      : super(key: key);
+
+  final Function(Meal) onFavoriteToggled;
+  final Function(String) favoriteChecker;
 
   Widget _buildSectionTitle(BuildContext context, String title) => Text(
         title,
@@ -18,6 +23,16 @@ class MealDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).accentColor,
+        onPressed: () => onFavoriteToggled(meal),
+        child: Icon(
+          favoriteChecker(meal.id)
+              ? Icons.favorite
+              : Icons.favorite_border_outlined,
+          color: Colors.red,
+        ),
       ),
       body: SingleChildScrollView(
         child: LayoutBuilder(

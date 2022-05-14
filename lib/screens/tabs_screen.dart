@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:recipes_app/models/meal.dart';
 import 'package:recipes_app/screens/category_list_screen.dart';
 import 'package:recipes_app/screens/favorites_screen.dart';
 import 'package:recipes_app/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
-  const TabsScreen({Key? key}) : super(key: key);
+  const TabsScreen({Key? key, required this.favorites}) : super(key: key);
+  final List<Meal> favorites;
   static const routeName = '/';
 
   @override
@@ -12,11 +14,24 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final List<Map<String, Object>> _pages = const [
-    {'title': CategoryListScreen.screenName, 'widget': CategoryListScreen()},
-    {'title': FavoritesScreen.screenName, 'widget': FavoritesScreen()},
-  ];
+  late List<Map<String, Object>> _pages;
   int _selectedTabIndex = 0;
+
+  @override
+  void initState() {
+    _pages = [
+      {
+        'title': CategoryListScreen.screenName,
+        'widget': const CategoryListScreen()
+      },
+      {
+        'title': FavoritesScreen.screenName,
+        'widget': FavoritesScreen(favorites: widget.favorites)
+      },
+    ];
+
+    super.initState();
+  }
 
   _handleTabTap(int index) {
     setState(() {

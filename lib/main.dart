@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Meal> _filteredMeals = MOCK_MEALS;
+  List<Meal> _favoriteMeals = [];
   Map<Filter, bool> _filters = {
     Filter.vegetarian: false,
     Filter.vegan: false,
@@ -40,6 +41,21 @@ class _MyAppState extends State<MyApp> {
           .toList();
     });
   }
+
+  void _toggleFavorite(Meal meal) {
+    setState(() {
+      var index = _favoriteMeals
+          .indexWhere((favoriteMeal) => favoriteMeal.id == meal.id);
+      if (index >= 0) {
+        _favoriteMeals.removeAt(index);
+      } else {
+        _favoriteMeals.add(meal);
+      }
+    });
+  }
+
+  bool _isMealFavorite(String id) =>
+      _favoriteMeals.any((meal) => meal.id == id);
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +92,16 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: TabsScreen.routeName,
       routes: {
-        TabsScreen.routeName: (context) => const TabsScreen(),
+        TabsScreen.routeName: (context) => TabsScreen(
+              favorites: _favoriteMeals,
+            ),
         FiltersScreen.routeName: (context) =>
             FiltersScreen(filters: _filters, onFilterToggled: _updateFilter),
-        CategoryListScreen.routeName: (context) => const CategoryListScreen(),
         MealsListScreen.routeName: (context) =>
             MealsListScreen(meals: _filteredMeals),
-        MealDetailScreen.routeName: (context) => const MealDetailScreen(),
+        MealDetailScreen.routeName: (context) => MealDetailScreen(
+            onFavoriteToggled: _toggleFavorite,
+            favoriteChecker: _isMealFavorite),
       },
     );
   }
